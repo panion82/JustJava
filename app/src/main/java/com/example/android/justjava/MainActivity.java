@@ -11,7 +11,7 @@ import java.text.NumberFormat;
  */
 public class MainActivity extends AppCompatActivity {
 
-    int quantity = 1;
+    int quantity = 2;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,36 +38,37 @@ public class MainActivity extends AppCompatActivity {
      * This method is called when the order button is clicked.
      */
     public void submitOrder(View view) {
-        int price = quantity * 5;
-        String priceMessage = "Total: $:" + price;
-        priceMessage = priceMessage + "\nThank you :)" ;
+        int price = calculatePrice();
+        String priceMessage = createOrderSummary(price);
         displayMessage(priceMessage);
-
-        calculatePrice(quantity);
     }
 
     /**
      * Calculates the price of the order.
-     *
-     * @param quantity is the number of cups of coffee ordered
+     * @return total price
      */
-    private void calculatePrice(int quantity) {
-        int price = quantity * 5;
+    private int calculatePrice() {
+        return quantity * 5;
     }
+
+    /**
+     * Create summary of the order.
+     * @return text summary
+     */
+    private String createOrderSummary(int price) {
+        String priceMessage ="Name: Kaptain Kunal";
+        priceMessage += "\nQuantity: " + quantity;
+        priceMessage += "\nTotal: $:" + price;
+        priceMessage += "\nThank you!";
+        return priceMessage;
+    }
+
     /**
      * This method displays the given quantity value on the screen.
      */
     private void displayQuantity(int numberOfCoffees) {
         TextView quantityTextView = (TextView) findViewById(R.id.quantity_text_view);
         quantityTextView.setText("" + numberOfCoffees);
-    }
-
-    /**
-     * This method displays the given price on the screen.
-     */
-    private void displayPrice(int number) {
-        TextView priceTextView = (TextView) findViewById(R.id.price_text_view);
-        priceTextView.setText(NumberFormat.getCurrencyInstance().format(number));
     }
 
     /**
